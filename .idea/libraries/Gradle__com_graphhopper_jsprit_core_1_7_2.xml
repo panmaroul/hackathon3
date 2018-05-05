@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.graphhopper:jsprit-core:1.7.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.graphhopper/jsprit-core/1.7.2/5e55bfffb5c8a8231cd873491ff54e669d377d/jsprit-core-1.7.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.graphhopper/jsprit-core/1.7.2/47476a07e1465af3e6e6925d6c1b948b6c8b3fac/jsprit-core-1.7.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

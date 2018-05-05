@@ -9,8 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import other.Algorithm;
 import other.Controllers;
-
+import model.Village;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
         LatLong adelfiko = new LatLong(41.014645, 23.457354);
         LatLong agia_Eleni	 = new LatLong(41.003545, 23.559196);
         LatLong peponia = new LatLong(40.988154, 23.516756);
+
         coordinates.add(serres);
         coordinates.add(provatas);
         coordinates.add(ano_Kamila);
@@ -79,6 +81,8 @@ public class MainController implements Initializable, MapComponentInitializedLis
         pathArray.push(serres);
         pathArray.push(provatas);
         map.addMapShape(new Polyline(new PolylineOptions().path(pathArray).strokeColor("#fc4c02")));
+
+        Algorithm.test();
 
     }
 

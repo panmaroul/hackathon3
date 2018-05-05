@@ -20,6 +20,8 @@ dependencies {
     //compile 'org.slf4j:slf4j-nop:1.7.25'
 
     compile group: 'com.lynden', name: 'GMapsFX', version: '2.12.0'
+    compile group: 'com.graphhopper', name: 'jsprit-core', version: '1.7.2'
+
 
 
 }
