@@ -3,10 +3,15 @@ package controllers;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.shapes.Polyline;
+import com.lynden.gmapsfx.shapes.PolylineOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import other.Controllers;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +23,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
     public AnchorPane anchorPane;
     public GoogleMapView mapView;
     private GoogleMap map;
+    private static Stage stage;
 
 
     @Override
@@ -69,6 +75,11 @@ public class MainController implements Initializable, MapComponentInitializedLis
 //
 //        InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
 //        fredWilkeInfoWindow.open(map, SerresMarker);
+        MVCArray pathArray = new MVCArray();
+        pathArray.push(serres);
+        pathArray.push(provatas);
+        map.addMapShape(new Polyline(new PolylineOptions().path(pathArray).strokeColor("#fc4c02")));
+
     }
 
     public void showMarkers(List<LatLong> coordinates){
@@ -77,6 +88,13 @@ public class MainController implements Initializable, MapComponentInitializedLis
             markerOptions1.position(coordinate);
             map.addMarker(new Marker(markerOptions1));
         }
+    }
+
+    public void selectFile(){
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stage);
+        //String[]
+
     }
 
     @Override
@@ -89,5 +107,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
         Controllers.setMainController(this);
     }
 
-
+    public static void setStage(Stage stage) {
+        MainController.stage = stage;
+    }
 }
