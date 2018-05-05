@@ -6,6 +6,7 @@ import com.lynden.gmapsfx.javascript.object.*;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import other.Controllers;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,33 +24,31 @@ public class MainController implements Initializable, MapComponentInitializedLis
     public void mapInitialized() {
         List<LatLong> coordinates = new ArrayList<>();
 
-        LatLong Serres = new LatLong(41.092083, 23.541016);
-        LatLong Provatas = new LatLong(41.068238, 23.390686);
-        LatLong Ano_Kamila = new LatLong(41.058320, 23.424134);
-        LatLong Katw_Kamila = new LatLong(41.020431, 23.483293);
-        LatLong Katw_Mitrousi	 = new LatLong(41.058680, 23.457547);
-        LatLong Koumaria = new LatLong(41.016434, 23.434656);
-        LatLong Skoutari = new LatLong(41.020032, 23.520701);
-        LatLong Adelfiko = new LatLong(41.014645, 23.457354);
-        LatLong Agia_Eleni	 = new LatLong(41.003545, 23.559196);
-        LatLong Peponia = new LatLong(40.988154, 23.516756);
-        coordinates.add(Serres);
-        coordinates.add(Provatas);
-        coordinates.add(Ano_Kamila);
-        coordinates.add(Katw_Kamila);
-        coordinates.add(Katw_Mitrousi);
-        coordinates.add(Koumaria);
-        coordinates.add(Skoutari);
-        coordinates.add(Adelfiko);
-        coordinates.add(Agia_Eleni);
-        coordinates.add(Peponia);
-
-
+        LatLong serres = new LatLong(41.092083, 23.541016);
+        LatLong provatas = new LatLong(41.068238, 23.390686);
+        LatLong ano_Kamila = new LatLong(41.058320, 23.424134);
+        LatLong katw_Kamila = new LatLong(41.020431, 23.483293);
+        LatLong katw_Mitrousi	 = new LatLong(41.058680, 23.457547);
+        LatLong koumaria = new LatLong(41.016434, 23.434656);
+        LatLong skoutari = new LatLong(41.020032, 23.520701);
+        LatLong adelfiko = new LatLong(41.014645, 23.457354);
+        LatLong agia_Eleni	 = new LatLong(41.003545, 23.559196);
+        LatLong peponia = new LatLong(40.988154, 23.516756);
+        coordinates.add(serres);
+        coordinates.add(provatas);
+        coordinates.add(ano_Kamila);
+        coordinates.add(katw_Kamila);
+        coordinates.add(katw_Mitrousi);
+        coordinates.add(koumaria);
+        coordinates.add(skoutari);
+        coordinates.add(adelfiko);
+        coordinates.add(agia_Eleni);
+        coordinates.add(peponia);
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(47.6097, -122.3331))
+        mapOptions.center(serres)
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
@@ -64,7 +63,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
         //Add markers to the map
 
 //        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-//        infoWindowOptions.content("<h2>Serres</h2>"
+//        infoWindowOptions.content("<h2>serres</h2>"
 //                + "Current Location: Safeway<br>"
 //                + "ETA: 45 minutes" );
 //
@@ -88,24 +87,6 @@ public class MainController implements Initializable, MapComponentInitializedLis
 
     public void initialize() {
         Controllers.setMainController(this);
-
-//        anchorPane.setOnMouseClicked(event -> {
-//            System.out.println("pressed");
-//        });
-//        GeoApiContext context = new GeoApiContext.Builder()
-//                .apiKey("AIzaSyBbPpzHzennC1dYKkhXf6vl3cWEZ1DDGrM")
-//                .build();
-//        GeocodingResult[] results = new GeocodingResult[0];
-//        try {
-//            results = GeocodingApi.geocode(context,
-//                    "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
-//        } catch (ApiException | IOException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        System.out.println(gson.toJson(results[0].formattedAddress));
-
-
     }
 
 
