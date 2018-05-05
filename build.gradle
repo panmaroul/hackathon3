@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+mainClassName = "Main"
+
+repositories{
+    mavenCentral()
+}
+
+
+dependencies {
+
+    // Local libraries
+    compile fileTree('lib')
+
+    //compile 'com.google.maps:google-maps-services:0.2.7'
+    //compile 'org.slf4j:slf4j-nop:1.7.25'
+
+    compile group: 'com.lynden', name: 'GMapsFX', version: '2.12.0'
+
+
+}
