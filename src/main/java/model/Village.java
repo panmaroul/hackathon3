@@ -2,7 +2,7 @@ package model;
 
 import com.lynden.gmapsfx.javascript.object.LatLong;
 
-import java.util.Map;
+import java.util.Map; 
 
 public class Village {
     private String name;
