@@ -14,7 +14,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
 
     public AnchorPane anchorPane;
     public GoogleMapView mapView;
-    private GoogleMap map;
+    private GoogleMap map; 
 
 
     @Override
