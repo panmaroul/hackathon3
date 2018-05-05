@@ -80,7 +80,7 @@ public class Algorithm {
                 }
                 return ConstraintsStatus.FULFILLED;
             }
-        };
+        }; 
 
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
         vrpBuilder.addVehicle(vehicle);
