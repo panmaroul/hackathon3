@@ -6,7 +6,10 @@ import com.lynden.gmapsfx.javascript.object.*;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.LocalAttribute;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,12 +33,16 @@ public class MainController implements Initializable, MapComponentInitializedLis
 
     public AnchorPane anchorPane;
     public GoogleMapView mapView;
+    public Button chooseFileButton;
     private GoogleMap map;
     private static Stage stage;
 
 
     @Override
     public void mapInitialized() {
+        chooseFileButton.setOnAction(event -> selectFile());
+
+
         List<LatLong> coordinates = new ArrayList<>();
 
         LatLong serres = new LatLong(41.092083, 23.541016);
@@ -83,43 +90,61 @@ public class MainController implements Initializable, MapComponentInitializedLis
 //
 //        InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
 //        fredWilkeInfoWindow.open(map, SerresMarker);
-        MVCArray pathArray = new MVCArray();
-        pathArray.push(serres);
-        pathArray.push(provatas);
-        map.addMapShape(new Polyline(new PolylineOptions().path(pathArray).strokeColor("#fc4c02")));
+//        MVCArray pathArray = new MVCArray();
+//        pathArray.push(serres);
+//        pathArray.push(provatas);
+//        map.addMapShape(new Polyline(new PolylineOptions().path(pathArray).strokeColor("#fc4c02")));
 
     }
 
     private void showMarkers(List<LatLong> coordinates) {
+        System.out.println(coordinates.size());
         for (LatLong coordinate : coordinates) {
-            MarkerOptions markerOptions1 = new MarkerOptions();
-            markerOptions1.position(coordinate);
-            map.addMarker(new Marker(markerOptions1));
+            showMarker(coordinate);
         }
     }
+    private void showMarker(LatLong location){
+        MarkerOptions markerOptions1 = new MarkerOptions();
+        markerOptions1.position(location);
+        map.addMarker(new Marker(markerOptions1));
+    }
 
-    public void selectFile() {
+    private void selectFile() {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
+
+
         try (Stream<String> stream = Files.lines(Paths.get(file.getCanonicalPath()))) {
 
             stream.forEach(s -> {
                 String[] parts = s.split(" ");
                 //example input 60,20 50,21 500
                 //origins Latlong [space] destination Latlong [space] distance double
+
                 String[] originLatLongString = parts[0].split(",");
                 String[] destinationLatLongString = parts[1].split(",");
                 LatLong originLatLong = new LatLong(Double.parseDouble(originLatLongString[0]),
                         Double.parseDouble(originLatLongString[1]));
                 LatLong destinationLatLong = new LatLong(Double.parseDouble(destinationLatLongString[0]),
                         Double.parseDouble(destinationLatLongString[1]));
-                double distance = Double.parseDouble(parts[3]);
+                //right now does nothing
+                double distance = Double.parseDouble(parts[2]);
+                //TODO: remove later
+                System.out.println(originLatLong.toString()+" "+ destinationLatLong.toString()+" "+distance);
+                showMarker(destinationLatLong);
+                showMarker(originLatLong);
+                addPolyline(originLatLong,destinationLatLong);
             });
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    }
+    private void addPolyline(LatLong origin, LatLong destination){
+        MVCArray pathArray = new MVCArray();
+        pathArray.push(origin);
+        pathArray.push(destination);
+        map.addMapShape(new Polyline(new PolylineOptions().path(pathArray).strokeColor("#fc4c02")));
     }
 
     @Override
