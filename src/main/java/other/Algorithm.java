@@ -26,8 +26,6 @@ import java.util.Collection;
 
 public class Algorithm {
 
-    static String currentID = "1";
-
     static LatLong serres = new LatLong(41.092083, 23.541016);
     static LatLong provatas = new LatLong(41.068238, 23.390686);
     static LatLong ano_Kamila = new LatLong(41.058320, 23.424134);
@@ -85,33 +83,10 @@ public class Algorithm {
                 setLocation(Location.newInstance(koumaria.getLatitude(),koumaria.getLongitude())).build();
 
 
-        //Location location5 = Location.newInstance(agia_Eleni.getLatitude(),agia_Eleni.getLongitude());
-        //Location location4 = Location.newInstance(peponia.getLatitude(),peponia.getLongitude());
-
-        //Contraint
-
-
         HardActivityConstraint constraint = new HardActivityConstraint() {
             @Override
             public ConstraintsStatus fulfilled(JobInsertionContext iFacts, TourActivity prevAct, TourActivity newAct, TourActivity nextAct, double prevActDepTime) {
                 if (newAct.getLocation().getId().equals("4") && prevAct.getLocation().getId().equals("5")){
-                    currentID=newAct.getLocation().getId();
-                    //System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
-                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
-                }
-
-                if (nextAct.getLocation().getId().equals("4") && newAct.getLocation().getId().equals("5")){
-                    System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
-                    //System.out.println();
-                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
-                }
-                if (prevAct.getLocation().getId().equals("5") && newAct.getLocation().getId().equals("4")){
-                    System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
-                    //System.out.println();
-                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
-                }
-                if (nextAct.getLocation().getId().equals("4") && newAct.getLocation().getId().equals("5")){
-                    System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
                     return ConstraintsStatus.NOT_FULFILLED_BREAK;
                 }
                 return ConstraintsStatus.FULFILLED;

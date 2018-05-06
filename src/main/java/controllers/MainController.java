@@ -40,6 +40,8 @@ public class MainController implements Initializable, MapComponentInitializedLis
     @Override
     public void mapInitialized() {
 
+        Algorithm.test();
+
         Controllers.setMainController(this);
         chooseFileButton.setOnAction(event -> selectFile());
 
