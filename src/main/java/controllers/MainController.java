@@ -39,60 +39,59 @@ public class MainController implements Initializable, MapComponentInitializedLis
 
     @Override
     public void mapInitialized() {
+
+        Controllers.setMainController(this);
         chooseFileButton.setOnAction(event -> selectFile());
 
         List<LatLong> coordinates = new ArrayList<>();
 
         LatLong serres = new LatLong(41.092083, 23.541016);
-        LatLong provatas = new LatLong(41.068238, 23.390686);
-        LatLong ano_Kamila = new LatLong(41.058320, 23.424134);
-        LatLong katw_Kamila = new LatLong(41.020431, 23.483293);
-        LatLong katw_Mitrousi = new LatLong(41.058680, 23.457547);
-        LatLong koumaria = new LatLong(41.016434, 23.434656);
-        LatLong skoutari = new LatLong(41.020032, 23.520701);
-        LatLong adelfiko = new LatLong(41.014645, 23.457354);
-        LatLong agia_Eleni = new LatLong(41.003545, 23.559196);
-        LatLong peponia = new LatLong(40.988154, 23.516756);
+//        LatLong provatas = new LatLong(41.068238, 23.390686);
+//        LatLong ano_Kamila = new LatLong(41.058320, 23.424134);
+//        LatLong katw_Kamila = new LatLong(41.020431, 23.483293);
+//        LatLong katw_Mitrousi = new LatLong(41.058680, 23.457547);
+//        LatLong koumaria = new LatLong(41.016434, 23.434656);
+//        LatLong skoutari = new LatLong(41.020032, 23.520701);
+//        LatLong adelfiko = new LatLong(41.014645, 23.457354);
+//        LatLong agia_Eleni = new LatLong(41.003545, 23.559196);
+//        LatLong peponia = new LatLong(40.988154, 23.516756);
+//
+//        Village serresVillage = new Village("serres",serres);
+//        Village provatasVillage = new Village("provatas",provatas);
+//        Village anoKamilaVillage = new Village("ano_kamila",ano_Kamila);
+//        Village katwKamilaVillage = new Village("katw_kamila",katw_Kamila);
+//        Village koumariaVillage = new Village("koumaria",koumaria);
+//        Village skoutariVillage = new Village("skoutari",skoutari);
+//        Village agiaEleniVillage = new Village("agia_eleni",agia_Eleni);
+//        Village peoponiaVillage = new Village("peponia",peponia);
+//        Village adelfikoVillage = new Village("adelfiko",adelfiko);
 
-        Village serresVillage = new Village("serres",serres);
-        Village provatasVillage = new Village("provatas",provatas);
-        Village anoKamilaVillage = new Village("ano_kamila",ano_Kamila);
-        Village katwKamilaVillage = new Village("katw_kamila",katw_Kamila);
-        Village koumariaVillage = new Village("koumaria",koumaria);
-        Village skoutariVillage = new Village("skoutari",skoutari);
-        Village agiaEleniVillage = new Village("agia_eleni",agia_Eleni);
-        Village peoponiaVillage = new Village("peponia",peponia);
-        Village adelfikoVillage = new Village("adelfiko",adelfiko);
+//        connections.put(new Pair("serres","provatas"),serres.distanceFrom(provatas));
+//        connections.put(new Pair("serres","katw_mitrousi"),serres.distanceFrom(katw_Mitrousi));
+//        connections.put(new Pair("serres","skoutari"),serres.distanceFrom(skoutari));
+//        connections.put(new Pair("provatas","anw_kamila"),provatas.distanceFrom(ano_Kamila));
+//        connections.put(new Pair("katw_mitrousi","anw_kamila"),katw_Mitrousi.distanceFrom(ano_Kamila));
+//        connections.put(new Pair("katw_mitrousi","katw_kamila"),katw_Mitrousi.distanceFrom(katw_Kamila));
+//        connections.put(new Pair("skoutari","katw_kamila"),skoutari.distanceFrom(katw_Kamila));
+//        connections.put(new Pair("skoutari","agia_eleni"),skoutari.distanceFrom(agia_Eleni));
+//        connections.put(new Pair("skoutari","peponia"),skoutari.distanceFrom(peponia));
+//        connections.put(new Pair("agia_eleni","peponia"),agia_Eleni.distanceFrom(peponia));
+//        connections.put(new Pair("peponia","adelfiko"),peponia.distanceFrom(adelfiko));
+//        connections.put(new Pair("koumaria","adelfiko"),koumaria.distanceFrom(adelfiko));
+//        connections.put(new Pair("anw_kamila","koumaria"),ano_Kamila.distanceFrom(koumaria));
+//        connections.put(new Pair("katw_kamila","koumaria"),katw_Kamila.distanceFrom(koumaria));
+//        connections.put(new Pair("katw_mitrousi","koumaria"),katw_Mitrousi.distanceFrom(koumaria));
 
-        connections.put(new Pair("serres","provatas"),serres.distanceFrom(provatas));
-        connections.put(new Pair("serres","katw_mitrousi"),serres.distanceFrom(katw_Mitrousi));
-        connections.put(new Pair("serres","skoutari"),serres.distanceFrom(skoutari));
-        connections.put(new Pair("provatas","anw_kamila"),provatas.distanceFrom(ano_Kamila));
-        connections.put(new Pair("katw_mitrousi","anw_kamila"),katw_Mitrousi.distanceFrom(ano_Kamila));
-        connections.put(new Pair("katw_mitrousi","katw_kamila"),katw_Mitrousi.distanceFrom(katw_Kamila));
-        connections.put(new Pair("skoutari","katw_kamila"),skoutari.distanceFrom(katw_Kamila));
-        connections.put(new Pair("skoutari","agia_eleni"),skoutari.distanceFrom(agia_Eleni));
-        connections.put(new Pair("skoutari","peponia"),skoutari.distanceFrom(peponia));
-        connections.put(new Pair("agia_eleni","peponia"),agia_Eleni.distanceFrom(peponia));
-        connections.put(new Pair("peponia","adelfiko"),peponia.distanceFrom(adelfiko));
-        connections.put(new Pair("koumaria","adelfiko"),koumaria.distanceFrom(adelfiko));
-        connections.put(new Pair("anw_kamila","koumaria"),ano_Kamila.distanceFrom(koumaria));
-        connections.put(new Pair("katw_kamila","koumaria"),katw_Kamila.distanceFrom(koumaria));
-        connections.put(new Pair("katw_mitrousi","koumaria"),katw_Mitrousi.distanceFrom(koumaria));
-
-
-
-
-        coordinates.add(serres);
-        coordinates.add(provatas);
-        coordinates.add(ano_Kamila);
-        coordinates.add(katw_Kamila);
-        coordinates.add(katw_Mitrousi);
-        coordinates.add(koumaria);
-        coordinates.add(skoutari);
-        coordinates.add(adelfiko);
-        coordinates.add(agia_Eleni);
-        coordinates.add(peponia);
+//        coordinates.add(serres);
+//        coordinates.add(provatas);
+//        coordinates.add(ano_Kamila);
+//        coordinates.add(katw_Kamila);
+//        coordinates.add(katw_Mitrousi);
+//        coordinates.add(koumaria);
+//        coordinates.add(skoutari);
+//        coordinates.add(adelfiko);
+//        coordinates.add(agia_Eleni);
+//        coordinates.add(peponia);
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
@@ -108,7 +107,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
                 .zoom(12);
 
         map = mapView.createMap(mapOptions);
-        showMarkers(coordinates);
+//        showMarkers(coordinates);
         //Add markers to the map
 
 //        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
@@ -123,7 +122,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
 //        pathArray.push(provatas);
 //        map.addMapShape(new Polyline(new PolylineOptions().path(pathArray).strokeColor("#fc4c02")));
 
-
+        //Algorithm.test();
     }
 
     private void showMarkers(List<LatLong> coordinates) {
@@ -141,29 +140,41 @@ public class MainController implements Initializable, MapComponentInitializedLis
     private void selectFile() {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
-
+        if (file == null) return;
 
         try (Stream<String> stream = Files.lines(Paths.get(file.getCanonicalPath()))) {
+            stream.forEach(line -> {
+                String[] lineNodes = line.split(";");
+                String[] originTokens = lineNodes[0].split(":");
+                String originCoordinates = originTokens[1].replaceAll("<","").replaceAll(">","");
+                String [] orLatLong = originCoordinates.split(",");
+                LatLong originLatLong = new LatLong(Double.parseDouble(orLatLong[0]),
+                        Double.parseDouble(orLatLong[1]));
+                String originName = originTokens[0];
 
-            stream.forEach(s -> {
-                String[] parts = s.split(" ");
-                //example input 60,20 50,21 500
-                //origins Latlong [space] destination Latlong [space] distance double
+                String[] destinationTokens = lineNodes[1].split(":");
+                String destinationCoordinates = destinationTokens[1].replaceAll("<","").replaceAll(">","");
+                String[] destLatLong = destinationCoordinates.split(",");
+                String destName = destinationTokens[0];
 
-                String[] originLatLongString = parts[0].split(",");
-                String[] destinationLatLongString = parts[1].split(",");
-                LatLong originLatLong = new LatLong(Double.parseDouble(originLatLongString[0]),
-                        Double.parseDouble(originLatLongString[1]));
-                LatLong destinationLatLong = new LatLong(Double.parseDouble(destinationLatLongString[0]),
-                        Double.parseDouble(destinationLatLongString[1]));
+
+
+                LatLong destinationLatLong = new LatLong(Double.parseDouble(destLatLong[0]),
+                        Double.parseDouble(destLatLong[1]));
                 //right now does nothing
-                double distance = Double.parseDouble(parts[2]);
+                String[] distanceToken = lineNodes[2].split(":");
+                String distance = distanceToken[1].replaceAll("<","").replaceAll(">","");
+                double dist = Double.parseDouble(distance);
+
+                connections.put(new Pair(originName,destName),dist);
                 //TODO: remove later
-                System.out.println(originLatLong.toString()+" "+ destinationLatLong.toString()+" "+distance);
+                System.out.println(originLatLong.toString()+" "+ destinationLatLong.toString()+" "+dist);
                 showMarker(destinationLatLong);
                 showMarker(originLatLong);
                 addPolyline(originLatLong,destinationLatLong);
             });
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -183,7 +194,7 @@ public class MainController implements Initializable, MapComponentInitializedLis
 
 
     public void initialize() {
-        Controllers.setMainController(this);
+
     }
 
     public static void setStage(Stage stage) {

@@ -26,7 +26,7 @@ import java.util.Collection;
 
 public class Algorithm {
 
-    static int previousId = 1;
+    static String currentID = "1";
 
     static LatLong serres = new LatLong(41.092083, 23.541016);
     static LatLong provatas = new LatLong(41.068238, 23.390686);
@@ -51,23 +51,23 @@ public class Algorithm {
         vehicleBuilder.setType(vehicleType);
         VehicleImpl vehicle = vehicleBuilder.build();
 
-        Service service1 = Service.Builder.newInstance("1").addSizeDimension(WEIGHT_INDEX,1).
+        Service service1 = Service.Builder.newInstance("provatas").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(provatas.getLatitude(),provatas.getLongitude())).build();
 
-        Service service2 = Service.Builder.newInstance("2").addSizeDimension(WEIGHT_INDEX,1).
+        Service service2 = Service.Builder.newInstance("ano_Kamila").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(ano_Kamila.getLatitude(),ano_Kamila.getLongitude())).build();
 
-        Service service3 = Service.Builder.newInstance("3").addSizeDimension(WEIGHT_INDEX,1).
+        Service service3 = Service.Builder.newInstance("skoutari").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(skoutari.getLatitude(),skoutari.getLongitude())).build();
 
 //        Service service4 = Service.Builder.newInstance("4").addSizeDimension(WEIGHT_INDEX,1).
 //                setLocation(Location.newInstance(peponia.getLatitude(),peponia.getLongitude())).build();
 
 
-        Service service4_1 = Service.Builder.newInstance("4").addSizeDimension(WEIGHT_INDEX,1).
+        Service service4_1 = Service.Builder.newInstance("peponia").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.Builder.newInstance().setCoordinate(new Coordinate(peponia.getLatitude(),peponia.getLongitude())).setId("4").build()).build();
 
-        Service service5_1 = Service.Builder.newInstance("5").addSizeDimension(WEIGHT_INDEX,1).
+        Service service5_1 = Service.Builder.newInstance("agia_Eleni").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.Builder.newInstance().setCoordinate(new Coordinate(agia_Eleni.getLatitude(),agia_Eleni.getLongitude())).setId("5").build()).build();
 
 
@@ -75,8 +75,15 @@ public class Algorithm {
 //                setLocation(Location.newInstance(agia_Eleni.getLatitude(),agia_Eleni.getLongitude())).build();
 
 
-        Service service6 = Service.Builder.newInstance("6").addSizeDimension(WEIGHT_INDEX,1).
+        Service service6 = Service.Builder.newInstance("katw_Kamila").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(katw_Kamila.getLatitude(),katw_Kamila.getLongitude())).build();
+
+        Service service7 = Service.Builder.newInstance("katw_Mitrous").addSizeDimension(WEIGHT_INDEX,1).
+                setLocation(Location.newInstance(katw_Mitrous.getLatitude(),katw_Mitrous.getLongitude())).build();
+
+        Service service8 = Service.Builder.newInstance("koumaria").addSizeDimension(WEIGHT_INDEX,1).
+                setLocation(Location.newInstance(koumaria.getLatitude(),koumaria.getLongitude())).build();
+
 
         //Location location5 = Location.newInstance(agia_Eleni.getLatitude(),agia_Eleni.getLongitude());
         //Location location4 = Location.newInstance(peponia.getLatitude(),peponia.getLongitude());
@@ -87,31 +94,25 @@ public class Algorithm {
         HardActivityConstraint constraint = new HardActivityConstraint() {
             @Override
             public ConstraintsStatus fulfilled(JobInsertionContext iFacts, TourActivity prevAct, TourActivity newAct, TourActivity nextAct, double prevActDepTime) {
-
-
-//                if (newAct.getLocation().getId().equals("4")){
-//                    System.out.println("NOT FULFFILLED");
-//                    return ConstraintsStatus.NOT_FULFILLED;
-//                }
-//
-//                if (newAct.getLocation().getId().equals("5")){
-//                    System.out.println("NOT FULFFILLED");
-//                    return ConstraintsStatus.NOT_FULFILLED;
-//                }
-//
-//
-//                if (nextAct.getLocation().getId().equals("5") && prevAct.getLocation().getId().equals("4")){
-//                    System.out.println("NOT FULFFILLED");
-//                    return ConstraintsStatus.NOT_FULFILLED;
-//                }
-//
-//                if (prevAct.getLocation().getId().equals("2") && newAct.getLocation().getId().equals("1")){
-//                    System.out.println("NOT FULFFILLED");
-//                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
-//                }
                 if (newAct.getLocation().getId().equals("4") && prevAct.getLocation().getId().equals("5")){
-                    System.out.println("NOT FULFFILLED");
-                    return ConstraintsStatus.NOT_FULFILLED;
+                    currentID=newAct.getLocation().getId();
+                    //System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
+                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
+                }
+
+                if (nextAct.getLocation().getId().equals("4") && newAct.getLocation().getId().equals("5")){
+                    System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
+                    //System.out.println();
+                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
+                }
+                if (prevAct.getLocation().getId().equals("5") && newAct.getLocation().getId().equals("4")){
+                    System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
+                    //System.out.println();
+                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
+                }
+                if (nextAct.getLocation().getId().equals("4") && newAct.getLocation().getId().equals("5")){
+                    System.out.println(prevAct.getLocation().getId()+"--"+newAct.getLocation().getId()+"--"+nextAct.getLocation().getId());
+                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
                 }
                 return ConstraintsStatus.FULFILLED;
             }
@@ -119,7 +120,7 @@ public class Algorithm {
 
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
         vrpBuilder.addVehicle(vehicle);
-        vrpBuilder.addAllJobs(Arrays.asList(service1,service2,service3,service4_1,service5_1,service6));
+        vrpBuilder.addAllJobs(Arrays.asList(service1,service2,service3,service4_1,service5_1,service6,service7,service8));
 
         VehicleRoutingProblem problem = vrpBuilder.build();
 
