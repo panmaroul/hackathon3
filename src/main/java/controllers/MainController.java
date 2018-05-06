@@ -40,7 +40,6 @@ public class MainController implements Initializable, MapComponentInitializedLis
     @Override
     public void mapInitialized() {
 
-        Algorithm.test();
 
         Controllers.setMainController(this);
         chooseFileButton.setOnAction(event -> selectFile());
@@ -176,11 +175,10 @@ public class MainController implements Initializable, MapComponentInitializedLis
                 addPolyline(originLatLong,destinationLatLong);
             });
 
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Algorithm.test();
     }
     private void addPolyline(LatLong origin, LatLong destination){
         MVCArray pathArray = new MVCArray();

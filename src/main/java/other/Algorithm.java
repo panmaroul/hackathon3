@@ -20,6 +20,7 @@ import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.Solutions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
+import sun.misc.Contended;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -58,20 +59,11 @@ public class Algorithm {
         Service service3 = Service.Builder.newInstance("skoutari").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(skoutari.getLatitude(),skoutari.getLongitude())).build();
 
-//        Service service4 = Service.Builder.newInstance("4").addSizeDimension(WEIGHT_INDEX,1).
-//                setLocation(Location.newInstance(peponia.getLatitude(),peponia.getLongitude())).build();
-
-
         Service service4_1 = Service.Builder.newInstance("peponia").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.Builder.newInstance().setCoordinate(new Coordinate(peponia.getLatitude(),peponia.getLongitude())).setId("4").build()).build();
 
         Service service5_1 = Service.Builder.newInstance("agia_Eleni").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.Builder.newInstance().setCoordinate(new Coordinate(agia_Eleni.getLatitude(),agia_Eleni.getLongitude())).setId("5").build()).build();
-
-
-//        Service service5 = Service.Builder.newInstance("5").addSizeDimension(WEIGHT_INDEX,1).
-//                setLocation(Location.newInstance(agia_Eleni.getLatitude(),agia_Eleni.getLongitude())).build();
-
 
         Service service6 = Service.Builder.newInstance("katw_Kamila").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(katw_Kamila.getLatitude(),katw_Kamila.getLongitude())).build();
@@ -82,15 +74,11 @@ public class Algorithm {
         Service service8 = Service.Builder.newInstance("koumaria").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(koumaria.getLatitude(),koumaria.getLongitude())).build();
 
-
-        HardActivityConstraint constraint = new HardActivityConstraint() {
-            @Override
-            public ConstraintsStatus fulfilled(JobInsertionContext iFacts, TourActivity prevAct, TourActivity newAct, TourActivity nextAct, double prevActDepTime) {
-                if (newAct.getLocation().getId().equals("4") && prevAct.getLocation().getId().equals("5")){
-                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
-                }
-                return ConstraintsStatus.FULFILLED;
+        HardActivityConstraint constraint = (iFacts, prevAct, newAct, nextAct, prevActDepTime) -> {
+            if (newAct.getLocation().getId().equals("4") && prevAct.getLocation().getId().equals("5")){
+                return HardActivityConstraint.ConstraintsStatus.NOT_FULFILLED_BREAK;
             }
+            return HardActivityConstraint.ConstraintsStatus.FULFILLED;
         };
 
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
