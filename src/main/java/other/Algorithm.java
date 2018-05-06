@@ -17,6 +17,7 @@ import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleType;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
+import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.Solutions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 
@@ -59,41 +60,76 @@ public class Algorithm {
         Service service3 = Service.Builder.newInstance("3").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(skoutari.getLatitude(),skoutari.getLongitude())).build();
 
-        Service service4 = Service.Builder.newInstance("4").addSizeDimension(WEIGHT_INDEX,1).
-                setLocation(Location.newInstance(peponia.getLatitude(),peponia.getLongitude())).build();
+//        Service service4 = Service.Builder.newInstance("4").addSizeDimension(WEIGHT_INDEX,1).
+//                setLocation(Location.newInstance(peponia.getLatitude(),peponia.getLongitude())).build();
 
-        Service service5 = Service.Builder.newInstance("5").addSizeDimension(WEIGHT_INDEX,1).
-                setLocation(Location.newInstance(agia_Eleni.getLatitude(),agia_Eleni.getLongitude())).build();
+
+        Service service4_1 = Service.Builder.newInstance("4").addSizeDimension(WEIGHT_INDEX,1).
+                setLocation(Location.Builder.newInstance().setCoordinate(new Coordinate(peponia.getLatitude(),peponia.getLongitude())).setId("4").build()).build();
+
+        Service service5_1 = Service.Builder.newInstance("5").addSizeDimension(WEIGHT_INDEX,1).
+                setLocation(Location.Builder.newInstance().setCoordinate(new Coordinate(agia_Eleni.getLatitude(),agia_Eleni.getLongitude())).setId("5").build()).build();
+
+
+//        Service service5 = Service.Builder.newInstance("5").addSizeDimension(WEIGHT_INDEX,1).
+//                setLocation(Location.newInstance(agia_Eleni.getLatitude(),agia_Eleni.getLongitude())).build();
+
 
         Service service6 = Service.Builder.newInstance("6").addSizeDimension(WEIGHT_INDEX,1).
                 setLocation(Location.newInstance(katw_Kamila.getLatitude(),katw_Kamila.getLongitude())).build();
 
-        HardActivityConstraint con = new HardActivityConstraint() {
+        //Location location5 = Location.newInstance(agia_Eleni.getLatitude(),agia_Eleni.getLongitude());
+        //Location location4 = Location.newInstance(peponia.getLatitude(),peponia.getLongitude());
+
+        //Contraint
+
+
+        HardActivityConstraint constraint = new HardActivityConstraint() {
             @Override
             public ConstraintsStatus fulfilled(JobInsertionContext iFacts, TourActivity prevAct, TourActivity newAct, TourActivity nextAct, double prevActDepTime) {
-                if(newAct instanceof TourActivity.JobActivity) {
-                    if(prevAct instanceof TourActivity.JobActivity) {
-                        if(((TourActivity.JobActivity) nextAct).getJob().getId().equals("4") && ((TourActivity.JobActivity) prevAct).getJob().getId().equals("5")){
-                            return ConstraintsStatus.NOT_FULFILLED;
-                        }
-                    }
+
+
+//                if (newAct.getLocation().getId().equals("4")){
+//                    System.out.println("NOT FULFFILLED");
+//                    return ConstraintsStatus.NOT_FULFILLED;
+//                }
+//
+//                if (newAct.getLocation().getId().equals("5")){
+//                    System.out.println("NOT FULFFILLED");
+//                    return ConstraintsStatus.NOT_FULFILLED;
+//                }
+//
+//
+//                if (nextAct.getLocation().getId().equals("5") && prevAct.getLocation().getId().equals("4")){
+//                    System.out.println("NOT FULFFILLED");
+//                    return ConstraintsStatus.NOT_FULFILLED;
+//                }
+//
+//                if (prevAct.getLocation().getId().equals("2") && newAct.getLocation().getId().equals("1")){
+//                    System.out.println("NOT FULFFILLED");
+//                    return ConstraintsStatus.NOT_FULFILLED_BREAK;
+//                }
+                if (newAct.getLocation().getId().equals("4") && prevAct.getLocation().getId().equals("5")){
+                    System.out.println("NOT FULFFILLED");
+                    return ConstraintsStatus.NOT_FULFILLED;
                 }
                 return ConstraintsStatus.FULFILLED;
             }
-        }; 
+        };
 
         VehicleRoutingProblem.Builder vrpBuilder = VehicleRoutingProblem.Builder.newInstance();
         vrpBuilder.addVehicle(vehicle);
-        vrpBuilder.addAllJobs(Arrays.asList(service1,service2,service3,service4,service5,service6));
+        vrpBuilder.addAllJobs(Arrays.asList(service1,service2,service3,service4_1,service5_1,service6));
 
         VehicleRoutingProblem problem = vrpBuilder.build();
 
         StateManager stateManager = new StateManager(problem);
         ConstraintManager constraintManager = new ConstraintManager(problem, stateManager);
-        constraintManager.addConstraint(con,ConstraintManager.Priority.HIGH);
+        constraintManager.addConstraint(constraint,ConstraintManager.Priority.CRITICAL);
 
         VehicleRoutingAlgorithm algorithm = Jsprit.Builder.newInstance(problem).setStateAndConstraintManager(stateManager,constraintManager).buildAlgorithm();
         Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
+
         VehicleRoutingProblemSolution bestSolution = Solutions.bestOf(solutions);
         SolutionPrinter.print(problem, bestSolution, SolutionPrinter.Print.VERBOSE);
 

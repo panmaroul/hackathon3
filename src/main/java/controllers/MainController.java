@@ -5,7 +5,6 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.LocalAttribute;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,6 +12,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Pair;
 import other.Algorithm;
 import other.Controllers;
 import model.Village;
@@ -21,13 +21,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
 
 public class MainController implements Initializable, MapComponentInitializedListener {
 
@@ -37,12 +34,12 @@ public class MainController implements Initializable, MapComponentInitializedLis
     public Button chooseFileButton;
     private GoogleMap map;
     private static Stage stage;
+    private static Map<Pair,Double> connections = new HashMap<>();
 
 
     @Override
     public void mapInitialized() {
         chooseFileButton.setOnAction(event -> selectFile());
-
 
         List<LatLong> coordinates = new ArrayList<>();
 
@@ -56,6 +53,35 @@ public class MainController implements Initializable, MapComponentInitializedLis
         LatLong adelfiko = new LatLong(41.014645, 23.457354);
         LatLong agia_Eleni = new LatLong(41.003545, 23.559196);
         LatLong peponia = new LatLong(40.988154, 23.516756);
+
+        Village serresVillage = new Village("serres",serres);
+        Village provatasVillage = new Village("provatas",provatas);
+        Village anoKamilaVillage = new Village("ano_kamila",ano_Kamila);
+        Village katwKamilaVillage = new Village("katw_kamila",katw_Kamila);
+        Village koumariaVillage = new Village("koumaria",koumaria);
+        Village skoutariVillage = new Village("skoutari",skoutari);
+        Village agiaEleniVillage = new Village("agia_eleni",agia_Eleni);
+        Village peoponiaVillage = new Village("peponia",peponia);
+        Village adelfikoVillage = new Village("adelfiko",adelfiko);
+
+        connections.put(new Pair("serres","provatas"),serres.distanceFrom(provatas));
+        connections.put(new Pair("serres","katw_mitrousi"),serres.distanceFrom(katw_Mitrousi));
+        connections.put(new Pair("serres","skoutari"),serres.distanceFrom(skoutari));
+        connections.put(new Pair("provatas","anw_kamila"),provatas.distanceFrom(ano_Kamila));
+        connections.put(new Pair("katw_mitrousi","anw_kamila"),katw_Mitrousi.distanceFrom(ano_Kamila));
+        connections.put(new Pair("katw_mitrousi","katw_kamila"),katw_Mitrousi.distanceFrom(katw_Kamila));
+        connections.put(new Pair("skoutari","katw_kamila"),skoutari.distanceFrom(katw_Kamila));
+        connections.put(new Pair("skoutari","agia_eleni"),skoutari.distanceFrom(agia_Eleni));
+        connections.put(new Pair("skoutari","peponia"),skoutari.distanceFrom(peponia));
+        connections.put(new Pair("agia_eleni","peponia"),agia_Eleni.distanceFrom(peponia));
+        connections.put(new Pair("peponia","adelfiko"),peponia.distanceFrom(adelfiko));
+        connections.put(new Pair("koumaria","adelfiko"),koumaria.distanceFrom(adelfiko));
+        connections.put(new Pair("anw_kamila","koumaria"),ano_Kamila.distanceFrom(koumaria));
+        connections.put(new Pair("katw_kamila","koumaria"),katw_Kamila.distanceFrom(koumaria));
+        connections.put(new Pair("katw_mitrousi","koumaria"),katw_Mitrousi.distanceFrom(koumaria));
+
+
+
 
         coordinates.add(serres);
         coordinates.add(provatas);
@@ -97,7 +123,6 @@ public class MainController implements Initializable, MapComponentInitializedLis
 //        pathArray.push(provatas);
 //        map.addMapShape(new Polyline(new PolylineOptions().path(pathArray).strokeColor("#fc4c02")));
 
-        Algorithm.test();
 
     }
 
