@@ -19,7 +19,7 @@ public class Main extends Application
 
         FXMLLoader loader = new FXMLLoader(Paths.get(ApplicationPaths.RESOURCES_VIEWS,"main.fxml").toFile().toURI().toURL());
         Parent root = loader.load();
-        stage.setTitle("VideoText Extractor");
+        stage.setTitle("Hackathon_2018");
         Scene scene = new Scene(root, 680, 390);
         //Scene scene = new Scene(new GoogleMap());
         scene.getStylesheets().add(Paths.get(ApplicationPaths.RESOURCES_CSS,"main.css").toFile().toURI().toURL().toExternalForm());
